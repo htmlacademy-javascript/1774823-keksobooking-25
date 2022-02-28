@@ -19,8 +19,6 @@ const getRandomFromRangeToFixed = (min, max, numberOfSimbols) => {
   }
 };
 
-getRandomFromRangeToFixed(1,10,10);
-
 const avatar = [
   'img/avatars/user01.png',
   'img/avatars/user02.png',
@@ -60,13 +58,17 @@ const getRandomArray = (array) => {
   return finishedArray;
 };
 
+const randomLat = getRandomFromRangeToFixed(35.65000, 35.70000, 5);
+const randomLng =  getRandomFromRangeToFixed(139.70000, 139.80000, 5);
+
+
 const createSimilarDescription = () => ({
   author: {
     avatar: getRandomArrayElement(avatar),
   },
   offer: {
     title: 'заголовок предложения',
-    address: 111,
+    address: randomLat + ' ' + randomLng,
     price: getRandomIntInclusive(10, 100),
     type: getRandomArrayElement(type),
     rooms: getRandomIntInclusive(1, 5),
@@ -78,8 +80,8 @@ const createSimilarDescription = () => ({
     photos: getRandomArray(photos),
   },
   location: {
-    lat: getRandomFromRangeToFixed(35.65000, 35.70000, 5),
-    lng: getRandomFromRangeToFixed(139.70000, 139.80000, 5)
+    lat: randomLat,
+    lng: randomLng,
   },
 });
 
