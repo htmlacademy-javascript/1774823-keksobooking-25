@@ -1,3 +1,5 @@
-import { similarDescriptions } from './data.js';
+import {createSimilarDescription } from './data.js';
+import './creat-element.js';
 
-similarDescriptions();
+const getSimilarDescriptions = () => Array.from({length: 10}, createSimilarDescription);
+getSimilarDescriptions();

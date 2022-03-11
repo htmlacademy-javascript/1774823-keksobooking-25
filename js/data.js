@@ -47,7 +47,4 @@ const createSimilarDescription = () => ({
   },
 });
 
-const similarDescriptions = () => Array.from({length: 10}, createSimilarDescription);
-similarDescriptions();
-
-export{similarDescriptions};
+export{createSimilarDescription};
