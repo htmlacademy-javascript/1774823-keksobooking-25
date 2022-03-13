@@ -10,6 +10,7 @@ const addNewDescription = (element) => {
   newTemplate.querySelector('.popup__title').textContent = element.offer.title;
   newTemplate.querySelector('.popup__text--address').textContent = element.offer.address;
   newTemplate.querySelector('.popup__text--price').textContent = `${element.offer.price  } ₽/ночь`;
+
   const getType = function () {
     const popupType = newTemplate.querySelector('.popup__type');
     newTemplate.querySelector('.popup__type').textContent = element.offer.type;
@@ -29,53 +30,56 @@ const addNewDescription = (element) => {
 
   newTemplate.querySelector('.popup__text--capacity').textContent = `${element.offer.rooms  } комнаты для ${  element.offer.guests  } гостей`;
   newTemplate.querySelector('.popup__text--time').textContent = `Заезд после ${  element.offer.checkin  }, выезд до ${  element.offer.checkout}`;
+
   const getFeatures = function () {
     const featuresFromData = element.offer.features;
     const featureList = newTemplate.querySelector('.popup__features');
     const fragment = document.createDocumentFragment();
 
-    featuresFromData.forEach((feature) => {
-      const featureIten = featureList.querySelector(`.popup__feature--${  feature}`);
+    if (featuresFromData === undefined) {
+      featureList.style.display = 'none';
+    } else {
+      featuresFromData.forEach((feature) => {
+        const featureItem = featureList.querySelector(`.popup__feature--${  feature}`);
 
-      if (featureIten) {
-        fragment.append(featureIten);
-      }
-    });
-    featureList.innerHTML = '';
-    featureList.append(fragment);
+        if (featureItem) {
+          fragment.append(featureItem);
+        }
+      });
+      featureList.innerHTML = '';
+      featureList.append(fragment);
+    }
   };
   getFeatures();
 
+
   newTemplate.querySelector('.popup__description').textContent = element.offer.description;
+  if (element.offer.description === undefined) {
+    newTemplate.querySelector('.popup__description').style.display = 'none';
+  }
 
   const getPhotos = function () {
     const popupPhotosDiv = newTemplate.querySelector('.popup__photos');
     const photoFromData = element.offer.photos;
     popupPhotosDiv.innerHTML = '';
-    for (let i = 0; i < photoFromData.length; i++) {
-      const newPh = document.createElement('img');
-      newPh.classList.add('popup__photo');
-      newPh.width = 45;
-      newPh.height = 40;
-      newPh.src = photoFromData[i];
 
-      popupPhotosDiv.append(newPh);
+    if (photoFromData === undefined) {
+      popupPhotosDiv.style.display = 'none';
+    } else {
+      for (let i = 0; i < photoFromData.length; i++) {
+        const newPh = document.createElement('img');
+        newPh.classList.add('popup__photo');
+        newPh.width = 45;
+        newPh.height = 40;
+        newPh.alt = 'Фотография жилья';
+        newPh.src = photoFromData[i];
+        popupPhotosDiv.append(newPh);
+      }
     }
   };
   getPhotos();
 
   newTemplate.querySelector('.popup__avatar').src = element.author.avatar;
-
-  for (let firstKey in element) {
-    if (typeof element[firstKey] === 'object') {
-      for (let secondKey in element[firstKey]) {
-        if (element[firstKey][secondKey] === undefined) {
-          newTemplate.querySelector('popup__' + element[firstKey]).remove;
-        }
-        console.log(element[firstKey][secondKey]);
-      }
-    }
-  }
 
   map.append(newTemplate);
 };
