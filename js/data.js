@@ -24,7 +24,7 @@ const photos = [
 const randomLat = getRandomFromRangeToFixed(35.65000, 35.70000, 5);
 const randomLng =  getRandomFromRangeToFixed(139.70000, 139.80000, 5);
 
-const createSimilarDescription = () => ({
+const createSimilarCard = () => ({
   author: {
     avatar: getRandomArrayElement(avatar),
   },
@@ -47,7 +47,6 @@ const createSimilarDescription = () => ({
   },
 });
 
-const similarDescriptions = () => Array.from({length: 10}, createSimilarDescription);
-similarDescriptions();
+const getArrayOfCards = () => Array.from({length: 10}, createSimilarCard);
 
-export{similarDescriptions};
+export{createSimilarCard, getArrayOfCards};

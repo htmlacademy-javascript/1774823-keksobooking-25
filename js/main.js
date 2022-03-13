@@ -1,3 +1,5 @@
-import { similarDescriptions } from './data.js';
+import {getArrayOfCards} from './data.js';
+import {getNewAdvert} from './create-card.js';
 
-similarDescriptions();
+const resultArrayOfCards = getArrayOfCards();
+getNewAdvert(resultArrayOfCards[0]);
