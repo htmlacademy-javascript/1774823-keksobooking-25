@@ -1,5 +1,5 @@
-import {createSimilarDescription } from './data.js';
-import './creat-element.js';
+import {getArrayOfCards} from './data.js';
+import {getNewAdvert} from './create-card.js';
 
-const getSimilarDescriptions = () => Array.from({length: 10}, createSimilarDescription);
-getSimilarDescriptions();
+const resultArrayOfCards = getArrayOfCards();
+getNewAdvert(resultArrayOfCards[0]);
