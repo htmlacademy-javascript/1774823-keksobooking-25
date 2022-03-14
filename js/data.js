@@ -49,4 +49,4 @@ const createSimilarCard = () => ({
 
 const getArrayOfCards = () => Array.from({length: 10}, createSimilarCard);
 
-export{createSimilarCard, getArrayOfCards};
+export{getArrayOfCards};
