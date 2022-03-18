@@ -27,10 +27,7 @@ const getDeliveryErrorMessage = () => {
   }
 };
 
-
-pristine.addValidator(validRooms, getValidOption, getDeliveryErrorMessage);
 pristine.addValidator(validCopacity, getValidOption, getDeliveryErrorMessage);
-
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
