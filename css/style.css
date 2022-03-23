@@ -1053,3 +1053,7 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.setup__error-text {
+  color: #ff6547;
+}
