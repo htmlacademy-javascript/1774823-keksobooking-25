@@ -32,7 +32,7 @@ const createSimilarCard = () => {
     },
     offer: {
       title: 'заголовок предложения',
-      address: `${randomLat  } ${  randomLng}`,
+      address: `${randomLat  }, ${  randomLng}`,
       price: getRandomIntInclusive(10, 100),
       type: getRandomArrayElement(type),
       rooms: getRandomIntInclusive(1, 5),
