@@ -1,4 +1,3 @@
-const map = document.querySelector('.map__canvas');
 const template = document.querySelector('#card').content.querySelector('.popup');
 
 const getNewAdvert = (card) => {
@@ -67,7 +66,7 @@ const getNewAdvert = (card) => {
 
   newTemplate.querySelector('.popup__avatar').src = card.author.avatar;
 
-  map.append(newTemplate);
+  return newTemplate;
 };
 
 export {getNewAdvert};

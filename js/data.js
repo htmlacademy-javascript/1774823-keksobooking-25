@@ -21,32 +21,36 @@ const photos = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-const randomLat = getRandomFromRangeToFixed(35.65000, 35.70000, 5);
-const randomLng =  getRandomFromRangeToFixed(139.70000, 139.80000, 5);
 
-const createSimilarCard = () => ({
-  author: {
-    avatar: getRandomArrayElement(avatar),
-  },
-  offer: {
-    title: 'заголовок предложения',
-    address: `${randomLat  } ${  randomLng}`,
-    price: getRandomIntInclusive(10, 100),
-    type: getRandomArrayElement(type),
-    rooms: getRandomIntInclusive(1, 5),
-    guests: getRandomIntInclusive(1, 10),
-    checkin: getRandomArrayElement(check),
-    checkout: getRandomArrayElement(check),
-    features: getRandomArray(features),
-    description: 'описание помещения',
-    photos: getRandomArray(photos),
-  },
-  location: {
-    lat: randomLat,
-    lng: randomLng,
-  },
-});
+const createSimilarCard = () => {
+  const randomLat = getRandomFromRangeToFixed(35.65000, 35.70000, 5);
+  const randomLng =  getRandomFromRangeToFixed(139.70000, 139.80000, 5);
+
+  return {
+    author: {
+      avatar: getRandomArrayElement(avatar),
+    },
+    offer: {
+      title: 'заголовок предложения',
+      address: `${randomLat  }, ${  randomLng}`,
+      price: getRandomIntInclusive(10, 100),
+      type: getRandomArrayElement(type),
+      rooms: getRandomIntInclusive(1, 5),
+      guests: getRandomIntInclusive(1, 10),
+      checkin: getRandomArrayElement(check),
+      checkout: getRandomArrayElement(check),
+      features: getRandomArray(features),
+      description: 'описание помещения',
+      photos: getRandomArray(photos),
+    },
+    location: {
+      lat: randomLat,
+      lng: randomLng,
+    }
+  };
+};
 
 const getArrayOfCards = () => Array.from({length: 10}, createSimilarCard);
 
 export{getArrayOfCards};
+
