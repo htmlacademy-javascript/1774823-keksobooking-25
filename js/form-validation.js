@@ -6,6 +6,7 @@ const validPrice = document.querySelector('#price');
 const validTimeIn = document.querySelector('#timein');
 const validTimeOut = document.querySelector('#timeout');
 
+
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
@@ -32,6 +33,7 @@ const getDeliveryErrorMessage = () => {
 
 pristine.addValidator(validCopacity, getValidOption, getDeliveryErrorMessage);
 
+
 const getValidType = () => {
   if (validType.value === 'bungalow') {
     validPrice.placeholder = '0';
@@ -51,9 +53,13 @@ const getValidType = () => {
   }
 };
 
+validType.addEventListener('change', () => {
+  getValidType();
+});
+
 const getTypeErrorMessage = () => `Минимальная цена ${  validPrice.placeholder}`;
 
-pristine.addValidator(validPrice, getValidType, getTypeErrorMessage);
+pristine.addValidator(validType, getValidType, getTypeErrorMessage);
 
 const getValdTimeIn = () => {
   if (validTimeIn.value === '12:00') {
@@ -81,5 +87,11 @@ pristine.addValidator(validTimeOut, getValdTimeOut);
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  //pristine.validate();
+  const isValid = pristine.validate();
+  if (isValid) {
+    console.log('Можно отправлять');
+  } else {
+    console.log('Форма невалидна');
+  }
 });

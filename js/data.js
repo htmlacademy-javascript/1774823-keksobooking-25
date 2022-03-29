@@ -1,4 +1,4 @@
-import {getRandomIntInclusive, getRandomFromRangeToFixed, getRandomArrayElement, getRandomArray} from './util.js';
+/*import {getRandomIntInclusive, getRandomFromRangeToFixed, getRandomArrayElement, getRandomArray} from './util.js';
 
 const avatar = [
   'img/avatars/user01.png',
@@ -52,5 +52,4 @@ const createSimilarCard = () => {
 
 const getArrayOfCards = () => Array.from({length: 10}, createSimilarCard);
 
-export{getArrayOfCards};
-
+//export{getArrayOfCards};*/
