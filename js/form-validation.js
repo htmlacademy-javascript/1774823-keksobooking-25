@@ -1,3 +1,5 @@
+import { sendData } from './api.js';
+
 const form = document.querySelector('.ad-form');
 const validRooms = document.querySelector('#room_number');
 const validCopacity = document.querySelector('#capacity');
@@ -33,8 +35,7 @@ const getDeliveryErrorMessage = () => {
 
 pristine.addValidator(validCopacity, getValidOption, getDeliveryErrorMessage);
 
-
-const getValidType = () => {
+/*const getValidType = () => {
   if (validType.value === 'bungalow') {
     validPrice.placeholder = '0';
     validPrice.min = '0';
@@ -57,9 +58,22 @@ validType.addEventListener('change', () => {
   getValidType();
 });
 
+const maxPrice = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
+
+validPrice.addEventListener('input', () => {
+  const unit = validPrice.value;
+});
+
 const getTypeErrorMessage = () => `Минимальная цена ${  validPrice.placeholder}`;
 
-pristine.addValidator(validType, getValidType, getTypeErrorMessage);
+//pristine.addValidator(validPrice, gggg, getTypeErrorMessage);*/
+
 
 const getValdTimeIn = () => {
   if (validTimeIn.value === '12:00') {
@@ -71,7 +85,13 @@ const getValdTimeIn = () => {
   }
 };
 
-pristine.addValidator(validTimeIn, getValdTimeIn);
+validTimeIn.addEventListener('change', () => {
+  getValdTimeIn();
+});
+
+const getResultValidTimeIn = () => validTimeIn.value === validTimeOut.value;
+
+pristine.addValidator(validTimeIn, getResultValidTimeIn);
 
 const getValdTimeOut = () => {
   if (validTimeOut.value === '12:00') {
@@ -83,15 +103,21 @@ const getValdTimeOut = () => {
   }
 };
 
-pristine.addValidator(validTimeOut, getValdTimeOut);
+validTimeOut.addEventListener('change', () => {
+  getValdTimeOut();
+});
+
+const getResultValidTimeOut = () => validTimeOut.value === validTimeIn.value;
+pristine.addValidator(validTimeOut, getResultValidTimeOut);
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   //pristine.validate();
   const isValid = pristine.validate();
   if (isValid) {
-    console.log('Можно отправлять');
+    sendData();
   } else {
     console.log('Форма невалидна');
   }
 });
+

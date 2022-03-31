@@ -1,7 +1,7 @@
 import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
 import{getData} from './api.js';
-import{getError} from './error.js';
+import{getErrorMessage} from './message.js';
 
 
 const LAT = 35.68950;
@@ -46,7 +46,7 @@ const map = L.map('map-canvas')
           .addTo(map)
           .bindPopup(getNewAdvert(card));
       });
-    }, getError
+    }, getErrorMessage
     );
   });
 
