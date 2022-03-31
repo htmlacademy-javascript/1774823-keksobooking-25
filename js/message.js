@@ -13,6 +13,4 @@ const getErrorMessage = () => {
   map.appendChild(newErrorTemplate);
 };
 
-getErrorMessage();
-
 export{getSuccessMessage, getErrorMessage};
