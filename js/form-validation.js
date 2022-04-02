@@ -1,4 +1,5 @@
 import { sendData } from './api.js';
+import { getSuccessMessage, getErrorMessage } from './message.js';
 
 const form = document.querySelector('.ad-form');
 const validRooms = document.querySelector('#room_number');
@@ -35,7 +36,7 @@ const getDeliveryErrorMessage = () => {
 
 pristine.addValidator(validCopacity, getValidOption, getDeliveryErrorMessage);
 
-/*const getValidType = () => {
+const getValidType = () => {
   if (validType.value === 'bungalow') {
     validPrice.placeholder = '0';
     validPrice.min = '0';
@@ -58,22 +59,19 @@ validType.addEventListener('change', () => {
   getValidType();
 });
 
-const maxPrice = {
-  'bungalow': 0,
-  'flat': 1000,
-  'hotel': 3000,
-  'house': 5000,
-  'palace': 10000,
+/*const maxPrice = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
 };
 
-validPrice.addEventListener('input', () => {
-  const unit = validPrice.value;
-});
+const getValidPrice = () => validPrice <= maxPrice[type.value];
 
-const getTypeErrorMessage = () => `Минимальная цена ${  validPrice.placeholder}`;
+const getTypeErrorMessage = () => `Минимальная цена ${  maxPrice[type.value]}`;
 
-//pristine.addValidator(validPrice, gggg, getTypeErrorMessage);*/
-
+pristine.addValidator(validPrice, getValidPrice, getTypeErrorMessage);*/
 
 const getValdTimeIn = () => {
   if (validTimeIn.value === '12:00') {
@@ -89,10 +87,6 @@ validTimeIn.addEventListener('change', () => {
   getValdTimeIn();
 });
 
-const getResultValidTimeIn = () => validTimeIn.value === validTimeOut.value;
-
-pristine.addValidator(validTimeIn, getResultValidTimeIn);
-
 const getValdTimeOut = () => {
   if (validTimeOut.value === '12:00') {
     validTimeIn.value = '12:00';
@@ -107,17 +101,15 @@ validTimeOut.addEventListener('change', () => {
   getValdTimeOut();
 });
 
-const getResultValidTimeOut = () => validTimeOut.value === validTimeIn.value;
-pristine.addValidator(validTimeOut, getResultValidTimeOut);
+const setUserFormSubmit = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      sendData(getSuccessMessage, getErrorMessage, new FormData(evt.target));
+    }
+  });
+};
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  //pristine.validate();
-  const isValid = pristine.validate();
-  if (isValid) {
-    sendData();
-  } else {
-    console.log('Форма невалидна');
-  }
-});
+setUserFormSubmit();
 

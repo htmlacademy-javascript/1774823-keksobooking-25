@@ -1,16 +1,39 @@
+import {isEscapeKey} from './util.js';
+
+
 const successTemplate = document.querySelector('#success').content;
 const errorTemplate = document.querySelector('#error').content;
-const map = document.querySelector('.map__canvas');
-
 
 const getSuccessMessage = () => {
   const newSuccessTemplate = successTemplate.cloneNode(true);
-  map.appendChild(newSuccessTemplate);
+  document.body.append(newSuccessTemplate);
+  const successAdd = document.querySelector('.success');
+
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey) {
+      evt.preventDefault();
+      successAdd.remove();
+    }
+  });
+  document.addEventListener('click', () => {
+    successAdd.remove();
+  });
 };
 
 const getErrorMessage = () => {
   const newErrorTemplate = errorTemplate.cloneNode(true);
-  map.appendChild(newErrorTemplate);
+  document.body.append(newErrorTemplate);
+  const errorAdd = document.querySelector('.error');
+
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey) {
+      evt.preventDefault();
+      errorAdd.remove();
+    }
+  });
+  document.addEventListener('click', () => {
+    errorAdd.remove();
+  });
 };
 
 export{getSuccessMessage, getErrorMessage};

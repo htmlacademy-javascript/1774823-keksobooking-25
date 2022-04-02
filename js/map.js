@@ -89,7 +89,8 @@ mainPinMarker.on('drag', (evt) => {
 mainPinMarker.addTo(map);
 
 //сброс карты
-buttonReset.addEventListener('click', () => {
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
   mainPinMarker.setLatLng({
     lat: LAT,
     lng: LNG,

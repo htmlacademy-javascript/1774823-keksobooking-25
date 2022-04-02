@@ -1,6 +1,3 @@
-import { getSuccessMessage, getErrorMessage } from './message.js';
-
-
 const getData = (onSuccess, onError) => {
   fetch('https://25.javascript.pages.academy/keksobooking/data')
     .then((response) => {
@@ -18,24 +15,24 @@ const getData = (onSuccess, onError) => {
     });
 };
 
-const sendData = () => {
+const sendData = (onSuccess, onFail, body) => {
   fetch(
     'https://25.javascript.pages.academy/keksobooking', {
       method: 'POST',
-      body: new FormData(),
+      body,
     }
   )
     .then((response) => {
       if(response.ok) {
-        getSuccessMessage();
+        onSuccess();
       } else {
-        getErrorMessage();
+        onFail();
       }
     })
     .catch(() => {
-      getErrorMessage();
+      onFail();
     });
 };
 
-
 export{getData, sendData};
+
