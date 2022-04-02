@@ -108,6 +108,7 @@ const setUserFormSubmit = () => {
     if (isValid) {
       sendData(getSuccessMessage, getErrorMessage, new FormData(evt.target));
     }
+    form.reset();
   });
 };
 
