@@ -1,14 +1,15 @@
 import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
 import{getData} from './api.js';
-import{getErrorMessage} from './message.js';
+import{openErrorMessage} from './message.js';
 
 
 const LAT = 35.68950;
 const LNG = 139.69171;
 
+
 const address = document.querySelector('#address');
-const buttonReset = document.querySelector('.ad-form__reset');
+
 
 const getCenterMap = (element) => {
   element.setView({
@@ -46,7 +47,7 @@ const map = L.map('map-canvas')
           .addTo(map)
           .bindPopup(getNewAdvert(card));
       });
-    }, getErrorMessage
+    }, openErrorMessage
     );
   });
 
@@ -88,9 +89,7 @@ mainPinMarker.on('drag', (evt) => {
 
 mainPinMarker.addTo(map);
 
-//сброс карты
-buttonReset.addEventListener('click', (evt) => {
-  evt.preventDefault();
+const getMapInitialState = () => {
   mainPinMarker.setLatLng({
     lat: LAT,
     lng: LNG,
@@ -99,5 +98,6 @@ buttonReset.addEventListener('click', (evt) => {
   getValueStart(address);
 
   getCenterMap(map);
-});
+};
 
+export{getMapInitialState};

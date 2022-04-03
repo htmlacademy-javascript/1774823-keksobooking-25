@@ -1,5 +1,6 @@
 import { sendData } from './api.js';
-import { getSuccessMessage, getErrorMessage } from './message.js';
+import { openErrorMessage} from './message.js';
+import { getFormInitialState } from './form.js';
 
 const form = document.querySelector('.ad-form');
 const validRooms = document.querySelector('#room_number');
@@ -106,9 +107,8 @@ const setUserFormSubmit = () => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
-      sendData(getSuccessMessage, getErrorMessage, new FormData(evt.target));
+      sendData(getFormInitialState, openErrorMessage, new FormData(evt.target));
     }
-    form.reset();
   });
 };
 
