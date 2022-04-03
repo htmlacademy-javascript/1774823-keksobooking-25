@@ -1,4 +1,4 @@
-/*const priceSlider = document.querySelector('.ad-form__slider');
+const priceSlider = document.querySelector('.ad-form__slider');
 const priceInput = document.querySelector('#price');
 const typeOfHousing = document.querySelector('#type');
 
@@ -75,4 +75,4 @@ typeOfHousing.addEventListener('change', () => {
     });
   }
 });
-*/
+
