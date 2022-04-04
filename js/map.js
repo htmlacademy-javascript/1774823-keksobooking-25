@@ -1,13 +1,15 @@
 import {setFormActive} from './form-status.js';
-import {getArrayOfCards} from './data.js';
 import {getNewAdvert} from './create-card.js';
+import{getData} from './api.js';
+import{openErrorMessage} from './message.js';
+
 
 const LAT = 35.68950;
 const LNG = 139.69171;
 
-const points = getArrayOfCards();
+
 const address = document.querySelector('#address');
-const buttonReset = document.querySelector('.ad-form__reset');
+
 
 const getCenterMap = (element) => {
   element.setView({
@@ -20,36 +22,33 @@ const getValueStart = (element) => {
   element.value = `${LAT  }, ${  LNG}`;
 };
 
-//отрисовка похожих маркеров
-const addSimilarPoints = (element) => {
-  const markerIcon = L.icon(
-    {
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
-
-  points.forEach((card) => {
-    const marker = L.marker({
-      lat: card.location.lat,
-      lng: card.location.lng
-    },
-    {
-      icon: markerIcon,
-    });
-
-    marker
-      .addTo(element)
-      .bindPopup(getNewAdvert(card));
-  });
-};
-
 //создаем карту
 const map = L.map('map-canvas')
   .on('load', () => {
     setFormActive();
     getValueStart(address);
-    addSimilarPoints(map);
+    getData((data) => {
+      const newData = data.slice(0, 10);
+      newData.forEach((card) => {
+        const markerIcon = L.icon(
+          {
+            iconUrl: './img/pin.svg',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+          });
+        const marker = L.marker({
+          lat: card.location.lat,
+          lng: card.location.lng
+        },
+        {
+          icon: markerIcon,
+        });
+        marker
+          .addTo(map)
+          .bindPopup(getNewAdvert(card));
+      });
+    }, openErrorMessage
+    );
   });
 
 getCenterMap(map);
@@ -90,8 +89,7 @@ mainPinMarker.on('drag', (evt) => {
 
 mainPinMarker.addTo(map);
 
-//сброс карты
-buttonReset.addEventListener('click', () => {
+const getMapInitialState = () => {
   mainPinMarker.setLatLng({
     lat: LAT,
     lng: LNG,
@@ -100,5 +98,6 @@ buttonReset.addEventListener('click', () => {
   getValueStart(address);
 
   getCenterMap(map);
-});
+};
 
+export{getMapInitialState};
