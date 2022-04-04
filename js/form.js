@@ -13,7 +13,7 @@ buttonReset.addEventListener('click', (evt) => {
   getMapInitialState();
 });
 
-//
+
 const getFormInitialState = () => {
   openSuccessMessage();
   form.reset();

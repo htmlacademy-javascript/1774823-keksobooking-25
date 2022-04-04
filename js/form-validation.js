@@ -60,19 +60,24 @@ validType.addEventListener('change', () => {
   getValidType();
 });
 
-/*const maxPrice = {
-  bungalow: 0,
-  flat: 1000,
-  hotel: 3000,
-  house: 5000,
-  palace: 10000,
+const maxPrice = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
 };
 
-const getValidPrice = () => validPrice <= maxPrice[type.value];
+const getValidPrice = () => validPrice.value >= maxPrice[validType.value];
 
-const getTypeErrorMessage = () => `Минимальная цена ${  maxPrice[type.value]}`;
+const getTypeErrorMessage = () => {
+  if (validPrice.value <= maxPrice[validType.value]) {
+    return 'Меньше минимального значения';
+  }
+};
 
-pristine.addValidator(validPrice, getValidPrice, getTypeErrorMessage);*/
+pristine.addValidator(validPrice, getValidPrice, getTypeErrorMessage);
+
 
 const getValdTimeIn = () => {
   if (validTimeIn.value === '12:00') {
