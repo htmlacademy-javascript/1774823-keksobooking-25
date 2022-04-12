@@ -2,7 +2,10 @@ import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
 import{getData} from './api.js';
 import{openErrorMessage} from './message.js';
+import {onFilterCard} from './filter.js';
+import {debounce} from './util.js';
 
+const mapFilter = document.querySelector('.map__filters');
 
 const LAT = 35.68950;
 const LNG = 139.69171;
@@ -22,32 +25,51 @@ const getValueStart = (element) => {
   element.value = `${LAT  }, ${  LNG}`;
 };
 
+
 //создаем карту
 const map = L.map('map-canvas')
   .on('load', () => {
     setFormActive();
     getValueStart(address);
-    getData((data) => {
-      const newData = data.slice(0, 10);
-      newData.forEach((card) => {
-        const markerIcon = L.icon(
-          {
-            iconUrl: './img/pin.svg',
-            iconSize: [40, 40],
-            iconAnchor: [20, 40],
-          });
-        const marker = L.marker({
-          lat: card.location.lat,
-          lng: card.location.lng
-        },
+
+    const markerGroup = L.layerGroup().addTo(map);
+
+    const createMarker = (card) => {
+      const markerIcon = L.icon(
         {
-          icon: markerIcon,
+          iconUrl: './img/pin.svg',
+          iconSize: [40, 40],
+          iconAnchor: [20, 40],
         });
-        marker
-          .addTo(map)
-          .bindPopup(getNewAdvert(card));
+      const marker = L.marker({
+        lat: card.location.lat,
+        lng: card.location.lng
+      },
+      {
+        icon: markerIcon,
       });
-    }, openErrorMessage
+      marker
+        .addTo(markerGroup)
+        .bindPopup(getNewAdvert(card));
+
+    };
+
+    getData((data) => {
+      const newData = data;
+
+      newData.slice(0, 10)
+        .forEach((card) => {
+          createMarker(card);
+        });
+
+      mapFilter.addEventListener('change', () => {
+        markerGroup.clearLayers();
+        newData.filter(onFilterCard).slice(0, 10).forEach((card) => {
+          createMarker(card);
+        });
+      });
+    },
+    openErrorMessage
     );
   });
 
