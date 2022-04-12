@@ -9,6 +9,7 @@ const mapFilter = document.querySelector('.map__filters');
 
 const LAT = 35.68950;
 const LNG = 139.69171;
+const RERENDER_DELAY = 500;
 
 
 const address = document.querySelector('#address');
@@ -62,12 +63,14 @@ const map = L.map('map-canvas')
           createMarker(card);
         });
 
-      mapFilter.addEventListener('change', () => {
+      mapFilter.addEventListener('change', debounce(() => {
         markerGroup.clearLayers();
+
         newData.filter(onFilterCard).slice(0, 10).forEach((card) => {
           createMarker(card);
         });
-      });
+
+      }), RERENDER_DELAY);
     },
     openErrorMessage
     );

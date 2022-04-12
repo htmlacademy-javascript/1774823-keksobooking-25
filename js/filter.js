@@ -44,4 +44,4 @@ const onFilterCard = (element) =>
   choosePrices(element) &&
   chooseFeatures(element);
 
-export {onFilterCard};
+export {filterHouse, filterPrice, filterRooms, filterGuests, filterFeatures, onFilterCard};
