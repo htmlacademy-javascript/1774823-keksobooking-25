@@ -1,0 +1,47 @@
+
+const mapFilter = document.querySelector('.map__filters');
+
+const filterHouse = mapFilter.querySelector('[name="housing-type"]');
+const filterPrice = mapFilter.querySelector('[name="housing-price"]');
+const filterRooms = mapFilter.querySelector('[name="housing-rooms"]');
+const filterGuests = mapFilter.querySelector('[name="housing-guests"]');
+const filterFeatures = mapFilter.querySelectorAll('.map__checkbox');
+
+
+const chooseHouses = (element) => filterHouse.value === 'any' || element.offer.type === filterHouse.value;
+const chooseRooms = (element) => filterRooms.value === 'any' || element.offer.rooms === +filterRooms.value;
+const chooseGuests = (element) => filterGuests.value === 'any' || element.offer.guests === +filterGuests.value;
+
+
+const choosePrices = (element) => {
+  if (filterPrice.value === 'low') {
+    return element.offer.price < 10000;
+  } if (filterPrice.value === 'middle') {
+    return element.offer.price >= 10000 && element.offer.price <= 50000;
+  } if (filterPrice.value === 'high') {
+    return element.offer.price > 50000;
+  } else {
+    return true;
+  }
+};
+
+const chooseFeatures = (element) => Array.from(filterFeatures).every((filterFeature) => {
+  if (!filterFeature.checked) {
+    return true;
+  }
+  if (!element.offer.features) {
+    return false;
+  }
+  return element.offer.features.includes(filterFeature.value);
+});
+
+chooseFeatures();
+
+const onFilterCard = (element) =>
+  chooseHouses(element) &&
+  chooseRooms(element) &&
+  chooseGuests(element) &&
+  choosePrices(element) &&
+  chooseFeatures(element);
+
+export {filterHouse, filterPrice, filterRooms, filterGuests, filterFeatures, onFilterCard};
