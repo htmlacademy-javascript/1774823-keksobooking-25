@@ -1,9 +1,11 @@
-import { getMapInitialState } from './map.js';
+import { getMapInitialState, clearLayers } from './map.js';
 import { openSuccessMessage } from './message.js';
-import {filterHouse, filterPrice, filterRooms, filterGuests, filterFeatures} from './filter.js';
 
 const form = document.querySelector('.ad-form');
 const buttonReset = document.querySelector('.ad-form__reset');
+const mapFilter = document.querySelector('.map__filters');
+const filterFeatures = mapFilter.querySelectorAll('[name="features"]');
+const mapFeatures = mapFilter.querySelectorAll('select');
 
 const checkboxReset = (element) => {
   element.forEach((value) => {
@@ -11,16 +13,19 @@ const checkboxReset = (element) => {
   });
 };
 
+const filterReset = (element) => {
+  element.forEach((el) => {
+    el.value = 'any';
+  });
+};
 
 //сброс по кнопке 'очистить'
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   form.reset();
   getMapInitialState();
-  filterHouse.value = 'any';
-  filterPrice.value = 'any';
-  filterRooms.value = 'any';
-  filterGuests.value = 'any';
+  clearLayers();
+  filterReset(mapFeatures);
   checkboxReset(filterFeatures);
 });
 
@@ -31,5 +36,5 @@ const getFormInitialState = () => {
   getMapInitialState();
 };
 
-export {getFormInitialState};
+export {getFormInitialState, checkboxReset, filterReset};
 

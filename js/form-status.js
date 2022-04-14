@@ -6,7 +6,7 @@ const mapFeature = mapForm.querySelector('.map__features');
 const featuresInput = mapFeature.querySelectorAll('.map__checkbox');
 
 const setFormInactive = () => {
-
+  console.log('jjj');
   mainForm.classList.add('ad-form--disabled');
 
   for (let i = 0; i < formFieldsets.length; i++) {
@@ -25,6 +25,7 @@ const setFormInactive = () => {
 };
 
 const setFormActive = () => {
+  console.log('aaa');
   mainForm.classList.remove('ad-form--disabled');
   for (let i = 0; i < formFieldsets.length; i++) {
     formFieldsets[i].disabled = false;
