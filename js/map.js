@@ -1,14 +1,16 @@
-import {setFormInactive, setFormActive} from './form-status.js';
+import {setFormActive, setFormInactive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
 import {onFilterCard} from './filter.js';
 import {debounce} from './util.js';
+import { getData } from './api.js';
+import {openErrorMessage} from './message.js';
+
+const mapFilter = document.querySelector('.map__filters');
+const address = document.querySelector('#address');
 
 const LAT = 35.68950;
 const LNG = 139.69171;
 const RERENDER_DELAY = 500;
-
-const mapFilter = document.querySelector('.map__filters');
-const address = document.querySelector('#address');
 
 setFormInactive();
 
@@ -49,6 +51,7 @@ const createMarker = (card) => {
 };
 
 const createData = (data) => {
+  setFormActive();
   const newData = data;
   newData.slice(0, 10)
     .forEach((card) => {
@@ -71,9 +74,9 @@ const map = L.map('map-canvas')
   .on('load', () => {
     getValueStart(address);
     markerGroup.addTo(map);
-    setFormActive();
   });
 
+getData(createData, openErrorMessage);
 
 getCenterMap(map);
 
