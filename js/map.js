@@ -1,4 +1,4 @@
-import {setFormActive, setFormInactive} from './form-status.js';
+import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
 import {onFilterCard} from './filter.js';
 import {debounce} from './util.js';
@@ -11,8 +11,6 @@ const address = document.querySelector('#address');
 const LAT = 35.68950;
 const LNG = 139.69171;
 const RERENDER_DELAY = 500;
-
-setFormInactive();
 
 const getCenterMap = (element) => {
   element.setView({
