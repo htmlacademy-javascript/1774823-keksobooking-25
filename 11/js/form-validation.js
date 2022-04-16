@@ -1,6 +1,7 @@
 import { sendData } from './api.js';
 import { openErrorMessage} from './message.js';
-import { getFormInitialState } from './form.js';
+import { getMapInitialState, clearLayers } from './map.js';
+import { openSuccessMessage } from './message.js';
 
 const form = document.querySelector('.ad-form');
 const validRooms = document.querySelector('#room_number');
@@ -9,6 +10,10 @@ const validType = document.querySelector('#type');
 const validPrice = document.querySelector('#price');
 const validTimeIn = document.querySelector('#timein');
 const validTimeOut = document.querySelector('#timeout');
+const mapFilter = document.querySelector('.map__filters');
+const filterFeatures = mapFilter.querySelectorAll('[name="features"]');
+const mapFeatures = mapFilter.querySelectorAll('select');
+const buttonReset = document.querySelector('.ad-form__reset');
 
 
 const pristine = new Pristine(form, {
@@ -107,10 +112,44 @@ validTimeOut.addEventListener('change', () => {
   getValdTimeOut();
 });
 
+
+const checkboxReset = (element) => {
+  element.forEach((value) => {
+    value.checked = false;
+  });
+};
+
+const filterReset = (element) => {
+  element.forEach((el) => {
+    el.value = 'any';
+  });
+};
+
+//сброс по кнопке 'очистить'
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  form.reset();
+  getMapInitialState();
+  clearLayers();
+  filterReset(mapFeatures);
+  checkboxReset(filterFeatures);
+});
+
+
+const getFormInitialState = () => {
+  openSuccessMessage();
+  form.reset();
+  getMapInitialState();
+};
+
+
 const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
+    filterReset(mapFeatures);
+    checkboxReset(filterFeatures);
+    clearLayers();
     if (isValid) {
       sendData(getFormInitialState, openErrorMessage, new FormData(evt.target));
     }
@@ -119,3 +158,4 @@ const setUserFormSubmit = () => {
 
 setUserFormSubmit();
 
+export {getFormInitialState, checkboxReset, filterReset};
