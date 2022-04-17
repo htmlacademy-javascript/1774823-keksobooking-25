@@ -1,9 +1,7 @@
 const fileChooserAvatar = document.querySelector('.ad-form__field input');
 const previewAvatar = document.querySelector('.ad-form-header__preview img');
-
 const fileChoosePhoto = document.querySelector('.ad-form__upload input');
 const previewPhoto = document.querySelector('.ad-form__photo');
-
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -32,4 +30,12 @@ fileChoosePhoto.addEventListener('change', () => {
   }
 });
 
-export {previewAvatar, previewPhoto};
+const resetFileAvatar = () => {
+  previewAvatar.src = 'img/muffin-grey.svg';
+};
+
+const resetFilePhoto = () => {
+  previewPhoto.innerHTML = '';
+};
+
+export {resetFileAvatar, resetFilePhoto};
