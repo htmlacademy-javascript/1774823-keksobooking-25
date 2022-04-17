@@ -1,6 +1,4 @@
-
 const mapFilter = document.querySelector('.map__filters');
-
 const filterHouse = mapFilter.querySelector('[name="housing-type"]');
 const filterPrice = mapFilter.querySelector('[name="housing-price"]');
 const filterRooms = mapFilter.querySelector('[name="housing-rooms"]');
@@ -12,16 +10,21 @@ const chooseHouses = (element) => filterHouse.value === 'any' || element.offer.t
 const chooseRooms = (element) => filterRooms.value === 'any' || element.offer.rooms === +filterRooms.value;
 const chooseGuests = (element) => filterGuests.value === 'any' || element.offer.guests === +filterGuests.value;
 
+const priceNumber = {
+  low: 10000,
+  middle: 50000,
+  high: 100000,
+};
 
 const choosePrices = (element) => {
   if (filterPrice.value === 'low') {
-    return element.offer.price < 10000;
+    return element.offer.price < priceNumber.low;
   } if (filterPrice.value === 'middle') {
-    return element.offer.price >= 10000 && element.offer.price <= 50000;
+    return element.offer.price >= priceNumber.low && element.offer.price <= priceNumber.middle;
   } if (filterPrice.value === 'high') {
-    return element.offer.price > 50000;
+    return element.offer.price > priceNumber.middle;
   } if (filterPrice.value === 'any') {
-    return element.offer.price >= 0 && element.offer.price <= 100000;
+    return element.offer.price >= 0 && element.offer.price <= priceNumber.high;
   }
 };
 

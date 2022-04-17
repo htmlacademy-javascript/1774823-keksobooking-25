@@ -1,9 +1,7 @@
 import {isEscapeKey} from './util.js';
 
-
 const successTemplate = document.querySelector('#success').content;
 const errorTemplate = document.querySelector('#error').content;
-
 
 const openSuccessMessage = () => {
   const newSuccessTemplate = successTemplate.cloneNode(true);

@@ -1,4 +1,3 @@
-
 import './map.js';
 import './form-validation.js';
 import './price-slider.js';
