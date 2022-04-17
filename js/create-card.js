@@ -54,13 +54,13 @@ const getNewAdvert = (card) => {
     popupPhotosDiv.style.display = 'none';
   } else {
     for (let i = 0; i < photoFromData.length; i++) {
-      const newPh = document.createElement('img');
-      newPh.classList.add('popup__photo');
-      newPh.width = 45;
-      newPh.height = 40;
-      newPh.alt = 'Фотография жилья';
-      newPh.src = photoFromData[i];
-      popupPhotosDiv.append(newPh);
+      const newPhoto = document.createElement('img');
+      newPhoto.classList.add('popup__photo');
+      newPhoto.width = 45;
+      newPhoto.height = 40;
+      newPhoto.alt = 'Фотография жилья';
+      newPhoto.src = photoFromData[i];
+      popupPhotosDiv.append(newPhoto);
     }
   }
 

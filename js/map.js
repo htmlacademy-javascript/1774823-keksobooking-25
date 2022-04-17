@@ -1,15 +1,15 @@
 import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
-import{getData} from './api.js';
-import{openErrorMessage} from './message.js';
-
-
-const LAT = 35.68950;
-const LNG = 139.69171;
-
+import {filterCard, setFilterChange} from './filter.js';
+import {debounce} from './util.js';
+import { getData } from './api.js';
+import {openErrorMessage} from './message.js';
 
 const address = document.querySelector('#address');
 
+const LAT = 35.68950;
+const LNG = 139.69171;
+const RERENDER_DELAY = 500;
 
 const getCenterMap = (element) => {
   element.setView({
@@ -22,33 +22,55 @@ const getValueStart = (element) => {
   element.value = `${LAT  }, ${  LNG}`;
 };
 
+const markerGroup = L.layerGroup();
+
+const clearLayers = () => {
+  markerGroup.clearLayers();
+};
+
+const createMarker = (card) => {
+  const markerIcon = L.icon(
+    {
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+  const marker = L.marker({
+    lat: card.location.lat,
+    lng: card.location.lng
+  },
+  {
+    icon: markerIcon,
+  });
+  marker
+    .addTo(markerGroup)
+    .bindPopup(getNewAdvert(card));
+};
+
+const createData = (data) => {
+  setFormActive();
+  const newData = data;
+  newData.slice(0, 10)
+    .forEach((card) => {
+      createMarker(card);
+    });
+  setFilterChange(debounce(() => {
+    clearLayers();
+
+    newData.filter(filterCard).slice(0, 10).forEach((card) => {
+      createMarker(card);
+    });
+
+  }), RERENDER_DELAY);
+};
+
+
 //создаем карту
 const map = L.map('map-canvas')
   .on('load', () => {
-    setFormActive();
     getValueStart(address);
-    getData((data) => {
-      const newData = data.slice(0, 10);
-      newData.forEach((card) => {
-        const markerIcon = L.icon(
-          {
-            iconUrl: './img/pin.svg',
-            iconSize: [40, 40],
-            iconAnchor: [20, 40],
-          });
-        const marker = L.marker({
-          lat: card.location.lat,
-          lng: card.location.lng
-        },
-        {
-          icon: markerIcon,
-        });
-        marker
-          .addTo(map)
-          .bindPopup(getNewAdvert(card));
-      });
-    }, openErrorMessage
-    );
+    markerGroup.addTo(map);
+    getData(createData, openErrorMessage);
   });
 
 getCenterMap(map);
@@ -94,10 +116,8 @@ const getMapInitialState = () => {
     lat: LAT,
     lng: LNG,
   });
-
   getValueStart(address);
-
   getCenterMap(map);
 };
 
-export{getMapInitialState};
+export{getMapInitialState, createData, clearLayers};
