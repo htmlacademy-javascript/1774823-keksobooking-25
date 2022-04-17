@@ -3,6 +3,7 @@ import { openErrorMessage} from './message.js';
 import { getMapInitialState, clearLayers } from './map.js';
 import { openSuccessMessage } from './message.js';
 
+
 const form = document.querySelector('.ad-form');
 const validRooms = document.querySelector('#room_number');
 const validCopacity = document.querySelector('#capacity');
@@ -11,8 +12,6 @@ const validPrice = document.querySelector('#price');
 const validTimeIn = document.querySelector('#timein');
 const validTimeOut = document.querySelector('#timeout');
 const mapFilter = document.querySelector('.map__filters');
-const filterFeatures = mapFilter.querySelectorAll('[name="features"]');
-const mapFeatures = mapFilter.querySelectorAll('select');
 const buttonReset = document.querySelector('.ad-form__reset');
 
 
@@ -112,17 +111,8 @@ validTimeOut.addEventListener('change', () => {
   getValdTimeOut();
 });
 
-
-const checkboxReset = (element) => {
-  element.forEach((value) => {
-    value.checked = false;
-  });
-};
-
-const filterReset = (element) => {
-  element.forEach((el) => {
-    el.value = 'any';
-  });
+const resetFilterForm = (element) => {
+  element.reset();
 };
 
 //сброс по кнопке 'очистить'
@@ -131,8 +121,7 @@ buttonReset.addEventListener('click', (evt) => {
   form.reset();
   getMapInitialState();
   clearLayers();
-  filterReset(mapFeatures);
-  checkboxReset(filterFeatures);
+  resetFilterForm(mapFilter);
 });
 
 
@@ -147,8 +136,7 @@ const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
-    filterReset(mapFeatures);
-    checkboxReset(filterFeatures);
+    resetFilterForm(mapFilter);
     clearLayers();
     if (isValid) {
       sendData(getFormInitialState, openErrorMessage, new FormData(evt.target));
@@ -158,4 +146,4 @@ const setUserFormSubmit = () => {
 
 setUserFormSubmit();
 
-export {getFormInitialState, checkboxReset, filterReset};
+export {getFormInitialState, resetFilterForm};

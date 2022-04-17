@@ -25,20 +25,24 @@ const choosePrices = (element) => {
   }
 };
 
-const chooseFeatures = (element) => Array.from(filterFeatures).every((filterFeature) => {
-  if (!filterFeature.checked) {
-    return true;
-  } else if (!element.offer.features) {
+const getСheckedInput = (element) => element.checked;
+
+const chooseFeatures = (element) => Array.prototype.filter.call(filterFeatures, getСheckedInput).every((filterFeature) => {
+  if (!element.offer.features) {
     return false;
   }
   return element.offer.features.includes(filterFeature.value);
 });
 
-const onFilterCard = (element) =>
+const setFilterChange = (cb) => {
+  mapFilter.addEventListener('change', cb);
+};
+
+const filterCard = (element) =>
   chooseHouses(element) &&
   chooseRooms(element) &&
   chooseGuests(element) &&
   choosePrices(element) &&
   chooseFeatures(element);
 
-export {onFilterCard};
+export {filterCard, setFilterChange};
