@@ -1,11 +1,10 @@
 import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
-import {onFilterCard} from './filter.js';
+import {filterCard, setFilterChange} from './filter.js';
 import {debounce} from './util.js';
 import { getData } from './api.js';
 import {openErrorMessage} from './message.js';
 
-const mapFilter = document.querySelector('.map__filters');
 const address = document.querySelector('#address');
 
 const LAT = 35.68950;
@@ -55,11 +54,10 @@ const createData = (data) => {
     .forEach((card) => {
       createMarker(card);
     });
-
-  mapFilter.addEventListener('change', debounce(() => {
+  setFilterChange(debounce(() => {
     clearLayers();
 
-    newData.filter(onFilterCard).slice(0, 10).forEach((card) => {
+    newData.filter(filterCard).slice(0, 10).forEach((card) => {
       createMarker(card);
     });
 
@@ -72,9 +70,8 @@ const map = L.map('map-canvas')
   .on('load', () => {
     getValueStart(address);
     markerGroup.addTo(map);
+    getData(createData, openErrorMessage);
   });
-
-getData(createData, openErrorMessage);
 
 getCenterMap(map);
 
