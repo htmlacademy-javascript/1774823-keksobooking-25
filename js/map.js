@@ -2,7 +2,7 @@ import {setFormActive} from './form-status.js';
 import {getNewAdvert} from './create-card.js';
 import {filterCard, setFilterChange} from './filter.js';
 import {debounce} from './util.js';
-import { getData } from './api.js';
+import {getData} from './api.js';
 import {openErrorMessage} from './message.js';
 
 const address = document.querySelector('#address');
@@ -92,7 +92,7 @@ const mainPinIcon = L.icon(
   }
 );
 
-//ггавный маркер
+//главный маркер
 const mainPinMarker = L.marker(
   {
     lat: LAT,

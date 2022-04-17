@@ -3,6 +3,7 @@ import { openErrorMessage} from './message.js';
 import { getMapInitialState, clearLayers } from './map.js';
 import { openSuccessMessage } from './message.js';
 import {setFilterChange} from './filter.js';
+import {resetFileAvatar, resetFilePhoto} from './form-photo.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -23,14 +24,14 @@ const pristine = new Pristine(form, {
   errorTextClass: 'setup__error-text',
 });
 
-const roomOption = {
+const RoomOption = {
   '1' : ['1'],
   '2' : ['1', '2'],
   '3' : ['1', '2', '3'],
   '100' : ['0'],
 };
 
-const minPrice = {
+const MinPrice = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
@@ -38,7 +39,7 @@ const minPrice = {
   'palace': 10000,
 };
 
-const getValidRoom = () => roomOption[validRooms.value].includes(validCopacity.value);
+const getValidRoom = () => RoomOption[validRooms.value].includes(validCopacity.value);
 
 const getDeliveryErrorMessage = () => {
   if (validRooms.value === '100' || validCopacity.value === '0') {
@@ -52,20 +53,20 @@ pristine.addValidator(validCopacity, getValidRoom, getDeliveryErrorMessage);
 
 const getValidType = () => {
   if (validType.value === 'bungalow') {
-    validPrice.placeholder = minPrice.bungalow;
-    validPrice.min = minPrice.bungalow;
+    validPrice.placeholder = MinPrice.bungalow;
+    validPrice.min = MinPrice.bungalow;
   } if (validType.value === 'flat') {
-    validPrice.placeholder = minPrice.flat;
-    validPrice.min = minPrice.flat;
+    validPrice.placeholder = MinPrice.flat;
+    validPrice.min = MinPrice.flat;
   } if (validType.value === 'hotel') {
-    validPrice.placeholder = minPrice.hotel;
-    validPrice.min = minPrice.hotel;
+    validPrice.placeholder = MinPrice.hotel;
+    validPrice.min = MinPrice.hotel;
   } if (validType.value === 'house') {
-    validPrice.placeholder = minPrice.house;
-    validPrice.min = minPrice.house;
+    validPrice.placeholder = MinPrice.house;
+    validPrice.min = MinPrice.house;
   } if (validType.value === 'palace') {
-    validPrice.placeholder = minPrice.palace;
-    validPrice.min = minPrice.palace;
+    validPrice.placeholder = MinPrice.palace;
+    validPrice.min = MinPrice.palace;
   }
 };
 
@@ -73,10 +74,10 @@ validType.addEventListener('change', () => {
   getValidType();
 });
 
-const getValidPrice = () => validPrice.value >= minPrice[validType.value];
+const getValidPrice = () => validPrice.value >= MinPrice[validType.value];
 
 const getTypeErrorMessage = () => {
-  if (validPrice.value <= minPrice[validType.value]) {
+  if (validPrice.value <= MinPrice[validType.value]) {
     return 'Меньше минимального значения';
   }
 };
@@ -120,6 +121,8 @@ const resetFilterForm = (element) => {
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   form.reset();
+  resetFileAvatar();
+  resetFilePhoto();
   getMapInitialState();
   clearLayers();
   resetFilterForm(mapFilter);
@@ -137,6 +140,8 @@ const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
+    resetFileAvatar();
+    resetFilePhoto();
     form.removeEventListener('change', setFilterChange);
     resetFilterForm(mapFilter);
     clearLayers();

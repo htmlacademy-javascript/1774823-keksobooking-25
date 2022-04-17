@@ -3,7 +3,7 @@ const formFieldsets = mainForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
 const mapSelects = mapForm.querySelectorAll('.map__filter');
 const mapFeature = mapForm.querySelector('.map__features');
-const featuresInput = mapFeature.querySelectorAll('.map__checkbox');
+const featureInputs = mapFeature.querySelectorAll('.map__checkbox');
 
 const setFormInactive = () => {
   mainForm.classList.add('ad-form--disabled');
@@ -18,8 +18,8 @@ const setFormInactive = () => {
   }
 
   mapFeature.classList.add('ad-form--disabled');
-  for (let i = 0; i < featuresInput.length; i++) {
-    featuresInput[i].disabled = true;
+  for (let i = 0; i < featureInputs.length; i++) {
+    featureInputs[i].disabled = true;
   }
 };
 
@@ -37,8 +37,8 @@ const setFormActive = () => {
   }
 
   mapFeature.classList.remove('ad-form--disabled');
-  for (let i = 0; i < featuresInput.length; i++) {
-    featuresInput[i].disabled = false;
+  for (let i = 0; i < featureInputs.length; i++) {
+    featureInputs[i].disabled = false;
   }
 };
 

@@ -10,7 +10,7 @@ const chooseHouses = (element) => filterHouse.value === 'any' || element.offer.t
 const chooseRooms = (element) => filterRooms.value === 'any' || element.offer.rooms === +filterRooms.value;
 const chooseGuests = (element) => filterGuests.value === 'any' || element.offer.guests === +filterGuests.value;
 
-const priceNumber = {
+const PriceNumber = {
   low: 10000,
   middle: 50000,
   high: 100000,
@@ -18,13 +18,13 @@ const priceNumber = {
 
 const choosePrices = (element) => {
   if (filterPrice.value === 'low') {
-    return element.offer.price < priceNumber.low;
+    return element.offer.price < PriceNumber.low;
   } if (filterPrice.value === 'middle') {
-    return element.offer.price >= priceNumber.low && element.offer.price <= priceNumber.middle;
+    return element.offer.price >= PriceNumber.low && element.offer.price <= PriceNumber.middle;
   } if (filterPrice.value === 'high') {
-    return element.offer.price > priceNumber.middle;
+    return element.offer.price > PriceNumber.middle;
   } if (filterPrice.value === 'any') {
-    return element.offer.price >= 0 && element.offer.price <= priceNumber.high;
+    return element.offer.price >= 0 && element.offer.price <= PriceNumber.high;
   }
 };
 

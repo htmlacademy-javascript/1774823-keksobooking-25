@@ -2,15 +2,26 @@ const priceSlider = document.querySelector('.ad-form__slider');
 const priceInput = document.querySelector('#price');
 const typeOfHousing = document.querySelector('#type');
 
+const STEP = 1000;
+const MAX = 100000;
+
+const MinPrice = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
+
 priceInput.value = 1000;
 
 noUiSlider.create(priceSlider, {
   range: {
     min: 0,
-    max: 100000,
+    max: MAX,
   },
   start: 0,
-  step: 1000,
+  step: STEP,
   connect: 'lower',
   format: {
     to: function (value) {
@@ -30,47 +41,47 @@ typeOfHousing.addEventListener('change', () => {
   if (typeOfHousing.value === 'palace') {
     priceSlider.noUiSlider.updateOptions({
       range: {
-        min: 10000,
-        max: 100000
+        min: MinPrice.palace,
+        max: MAX
       },
-      step: 1000,
-      start: 10000
+      step: STEP,
+      start: MAX
     });
   } if (typeOfHousing.value === 'house') {
     priceSlider.noUiSlider.updateOptions({
       range: {
-        min: 5000,
-        max: 100000
+        min: MinPrice.house,
+        max: MAX
       },
-      step: 1000,
-      start: 5000
+      step: STEP,
+      start: MinPrice.house
     });
   } if (typeOfHousing.value === 'hotel') {
     priceSlider.noUiSlider.updateOptions({
       range: {
-        min: 3000,
-        max: 100000
+        min: MinPrice.hotel,
+        max: MAX
       },
-      step: 1000,
-      start: 3000
+      step: STEP,
+      start: MinPrice.hotel
     });
   } if (typeOfHousing.value === 'flat') {
     priceSlider.noUiSlider.updateOptions({
       range: {
-        min: 1000,
-        max: 100000
+        min: MinPrice.flat,
+        max: MAX
       },
-      step: 1000,
-      start: 1000
+      step: STEP,
+      start: MinPrice.flat
     });
   } if (typeOfHousing.value === 'bungalow') {
     priceSlider.noUiSlider.updateOptions({
       range: {
-        min: 0,
-        max: 100000
+        min: MinPrice.bungalow,
+        max: MAX
       },
-      step: 1000,
-      start: 0
+      step: STEP,
+      start: MinPrice.bungalow
     });
   }
 });
