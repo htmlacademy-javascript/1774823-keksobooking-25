@@ -3,6 +3,7 @@ import { openErrorMessage} from './message.js';
 import { getMapInitialState, clearLayers } from './map.js';
 import { openSuccessMessage } from './message.js';
 import {setFilterChange} from './filter.js';
+import {previewAvatar, previewPhoto} from './form-photo.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -120,6 +121,8 @@ const resetFilterForm = (element) => {
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   form.reset();
+  previewAvatar.src = 'img/muffin-grey.svg';
+  previewPhoto.innerHTML = '';
   getMapInitialState();
   clearLayers();
   resetFilterForm(mapFilter);
@@ -137,6 +140,8 @@ const setUserFormSubmit = () => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
+    previewAvatar.src = 'img/muffin-grey.svg';
+    previewPhoto.innerHTML = '';
     form.removeEventListener('change', setFilterChange);
     resetFilterForm(mapFilter);
     clearLayers();
