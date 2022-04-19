@@ -1,9 +1,9 @@
+const STEP = 1000;
+const MAX = 100000;
+
 const priceSlider = document.querySelector('.ad-form__slider');
 const priceInput = document.querySelector('#price');
 const typeOfHousing = document.querySelector('#type');
-
-const STEP = 1000;
-const MAX = 100000;
 
 const MinPrice = {
   'bungalow': 0,

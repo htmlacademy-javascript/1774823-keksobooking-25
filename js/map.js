@@ -5,11 +5,11 @@ import {debounce} from './util.js';
 import {getData} from './api.js';
 import {openErrorMessage} from './message.js';
 
-const address = document.querySelector('#address');
-
 const LAT = 35.68950;
 const LNG = 139.69171;
 const RERENDER_DELAY = 500;
+
+const address = document.querySelector('#address');
 
 const getCenterMap = (element) => {
   element.setView({

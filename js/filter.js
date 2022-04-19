@@ -28,9 +28,9 @@ const choosePrices = (element) => {
   }
 };
 
-const getСheckedInput = (element) => element.checked;
+const getCheckedInput = (element) => element.checked;
 
-const chooseFeatures = (element) => Array.prototype.filter.call(filterFeatures, getСheckedInput).every((filterFeature) => {
+const chooseFeatures = (element) => Array.prototype.filter.call(filterFeatures, getCheckedInput).every((filterFeature) => {
   if (!element.offer.features) {
     return false;
   }

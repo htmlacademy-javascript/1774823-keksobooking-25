@@ -85,7 +85,7 @@ const getTypeErrorMessage = () => {
 pristine.addValidator(validPrice, getValidPrice, getTypeErrorMessage);
 
 
-const getValdTimeIn = () => {
+const getValidTimeIn = () => {
   if (validTimeIn.value === '12:00') {
     validTimeOut.value = '12:00';
   } if (validTimeIn.value === '13:00') {
@@ -96,10 +96,10 @@ const getValdTimeIn = () => {
 };
 
 validTimeIn.addEventListener('change', () => {
-  getValdTimeIn();
+  getValidTimeIn();
 });
 
-const getValdTimeOut = () => {
+const getValidTimeOut = () => {
   if (validTimeOut.value === '12:00') {
     validTimeIn.value = '12:00';
   } if (validTimeOut.value === '13:00') {
@@ -110,7 +110,7 @@ const getValdTimeOut = () => {
 };
 
 validTimeOut.addEventListener('change', () => {
-  getValdTimeOut();
+  getValidTimeOut();
 });
 
 const resetFilterForm = (element) => {
